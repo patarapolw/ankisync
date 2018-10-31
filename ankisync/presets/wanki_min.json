@@ -1,0 +1,42 @@
+{
+  "col": {
+    "dconf": {
+      "1540931682693": {
+        "name": "wanki.min",
+        "replayq": true,
+        "lapse": {
+          "leechFails": 8,
+          "minInt": 1,
+          "delays": [ 10 ],
+          "leechAction": 0,
+          "mult": 0
+        },
+        "rev": {
+          "perDay": 200,
+          "fuzz": 0.05,
+          "ivlFct": 1,
+          "maxIvl": 36500,
+          "ease4": 1.3,
+          "bury": false,
+          "minSpace": 1
+        },
+        "timer": 0,
+        "dyn": false,
+        "maxTaken": 60,
+        "usn": -1,
+        "new": {
+          "perDay": 10,
+          "delays": [ 1, 10, 240, 480 ],
+          "separate": true,
+          "ints": [ 1, 4, 7 ],
+          "initialFactor": 2500,
+          "bury": false,
+          "order": 0
+        },
+        "mod": 1540931774,
+        "id": 1540931682693,
+        "autoplay": true
+      }
+    }
+  }
+}

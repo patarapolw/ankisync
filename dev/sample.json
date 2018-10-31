@@ -1,0 +1,2258 @@
+{
+  "col": {
+    "id": 1,
+    "crt": 1540933200,
+    "mod": 1540966567,
+    "scm": 1540966298473,
+    "ver": 11,
+    "dty": 0,
+    "usn": 0,
+    "ls": 0,
+    "conf": {
+      "nextPos": 1,
+      "estTimes": true,
+      "sortBackwards": false,
+      "sortType": "noteFld",
+      "timeLim": 0,
+      "activeDecks": [
+        1
+      ],
+      "addToCur": true,
+      "curDeck": 1,
+      "curModel": "1540966298474",
+      "collapseTime": 1200,
+      "activeCols": [
+        "noteFld",
+        "template",
+        "cardDue",
+        "deck"
+      ],
+      "savedFilters": {},
+      "dueCounts": true,
+      "newBury": true,
+      "newSpread": 0
+    },
+    "models": {
+      "1540966298470": {
+        "vers": [],
+        "name": "Basic (optional reversed card)",
+        "tags": [],
+        "did": 1,
+        "usn": -1,
+        "req": [
+          [
+            0,
+            "all",
+            [
+              0
+            ]
+          ],
+          [
+            1,
+            "all",
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        "flds": [
+          {
+            "size": 20,
+            "name": "Front",
+            "media": [],
+            "rtl": false,
+            "ord": 0,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "Back",
+            "media": [],
+            "rtl": false,
+            "ord": 1,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "Add Reverse",
+            "media": [],
+            "rtl": false,
+            "ord": 2,
+            "font": "Arial",
+            "sticky": false
+          }
+        ],
+        "sortf": 0,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "tmpls": [
+          {
+            "afmt": "{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}",
+            "name": "Card 1",
+            "qfmt": "{{Front}}",
+            "did": null,
+            "ord": 0,
+            "bafmt": "",
+            "bqfmt": ""
+          },
+          {
+            "afmt": "{{FrontSide}}\n\n<hr id=answer>\n\n{{Front}}",
+            "name": "Card 2",
+            "qfmt": "{{#Add Reverse}}{{Back}}{{/Add Reverse}}",
+            "did": null,
+            "ord": 1,
+            "bafmt": "",
+            "bqfmt": ""
+          }
+        ],
+        "latexPost": "\\end{document}",
+        "type": 0,
+        "id": "1540966298470",
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n",
+        "mod": 1540966298
+      },
+      "1540966298473": {
+        "vers": [],
+        "name": "Basic (and reversed card)",
+        "tags": [],
+        "did": 1,
+        "usn": -1,
+        "req": [
+          [
+            0,
+            "all",
+            [
+              0
+            ]
+          ],
+          [
+            1,
+            "all",
+            [
+              1
+            ]
+          ]
+        ],
+        "flds": [
+          {
+            "size": 20,
+            "name": "Front",
+            "media": [],
+            "rtl": false,
+            "ord": 0,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "Back",
+            "media": [],
+            "rtl": false,
+            "ord": 1,
+            "font": "Arial",
+            "sticky": false
+          }
+        ],
+        "sortf": 0,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "tmpls": [
+          {
+            "afmt": "{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}",
+            "name": "Card 1",
+            "qfmt": "{{Front}}",
+            "did": null,
+            "ord": 0,
+            "bafmt": "",
+            "bqfmt": ""
+          },
+          {
+            "afmt": "{{FrontSide}}\n\n<hr id=answer>\n\n{{Front}}",
+            "name": "Card 2",
+            "qfmt": "{{Back}}",
+            "did": null,
+            "ord": 1,
+            "bafmt": "",
+            "bqfmt": ""
+          }
+        ],
+        "latexPost": "\\end{document}",
+        "type": 0,
+        "id": "1540966298473",
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n",
+        "mod": 1540966298
+      },
+      "1540966298474": {
+        "vers": [],
+        "name": "Basic",
+        "tags": [],
+        "did": 1,
+        "usn": -1,
+        "req": [
+          [
+            0,
+            "all",
+            [
+              0
+            ]
+          ]
+        ],
+        "flds": [
+          {
+            "size": 20,
+            "name": "Front",
+            "media": [],
+            "rtl": false,
+            "ord": 0,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "Back",
+            "media": [],
+            "rtl": false,
+            "ord": 1,
+            "font": "Arial",
+            "sticky": false
+          }
+        ],
+        "sortf": 0,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "tmpls": [
+          {
+            "afmt": "{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}",
+            "name": "Card 1",
+            "qfmt": "{{Front}}",
+            "did": null,
+            "ord": 0,
+            "bafmt": "",
+            "bqfmt": ""
+          }
+        ],
+        "latexPost": "\\end{document}",
+        "type": 0,
+        "id": "1540966298474",
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n",
+        "mod": 1540966298
+      },
+      "1540966298469": {
+        "vers": [],
+        "name": "Cloze",
+        "tags": [],
+        "did": 1,
+        "usn": -1,
+        "flds": [
+          {
+            "size": 20,
+            "name": "Text",
+            "media": [],
+            "rtl": false,
+            "ord": 0,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "Extra",
+            "media": [],
+            "rtl": false,
+            "ord": 1,
+            "font": "Arial",
+            "sticky": false
+          }
+        ],
+        "sortf": 0,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "tmpls": [
+          {
+            "afmt": "{{cloze:Text}}<br>\n{{Extra}}",
+            "name": "Cloze",
+            "qfmt": "{{cloze:Text}}",
+            "did": null,
+            "ord": 0,
+            "bafmt": "",
+            "bqfmt": ""
+          }
+        ],
+        "latexPost": "\\end{document}",
+        "type": 1,
+        "id": "1540966298469",
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n\n.cloze {\n font-weight: bold;\n color: blue;\n}",
+        "mod": 1540966298
+      },
+      "1540966370319": {
+        "vers": [],
+        "name": "zhlib_hanzi",
+        "tags": [],
+        "did": 1,
+        "usn": -1,
+        "flds": [
+          {
+            "size": 20,
+            "name": "hanzi",
+            "media": [],
+            "rtl": false,
+            "ord": 0,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "pinyin",
+            "media": [],
+            "rtl": false,
+            "ord": 1,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "meaning",
+            "media": [],
+            "rtl": false,
+            "ord": 2,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "heisig",
+            "media": [],
+            "rtl": false,
+            "ord": 3,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "kanji",
+            "media": [],
+            "rtl": false,
+            "ord": 4,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "junda",
+            "media": [],
+            "rtl": false,
+            "ord": 5,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "vocabs",
+            "media": [],
+            "rtl": false,
+            "ord": 6,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "sentences",
+            "media": [],
+            "rtl": false,
+            "ord": 7,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "note",
+            "media": [],
+            "rtl": false,
+            "ord": 8,
+            "font": "Arial",
+            "sticky": false
+          }
+        ],
+        "sortf": 0,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\begin{document}\n",
+        "tmpls": [
+          {
+            "afmt": "<h1>{{hanzi}}</h1>\n<hr>\n<h2>{{pinyin}}</h2>\n<h3>{{meaning}}</h3>\n<p>Junda: {{junda}}</p>\n<p>Heisig: {{heisig}}</p>\n<h4>Vocab</h4>\n<p>{{vocabs}}</p>\n<h4>Sentence</h4>\n<p>{{sentences}}</p>\n",
+            "name": "Forward",
+            "qfmt": "<h1>Hanzi: {{hanzi}}</h1>\n",
+            "did": null,
+            "ord": 0,
+            "bafmt": "",
+            "bqfmt": ""
+          },
+          {
+            "afmt": "<h1>{{hanzi}}</h1>\n<hr>\n<h2>{{pinyin}}</h2>\n<h3>{{meaning}}</h3>\n<p>Junda: {{junda}}</p>\n<p>Heisig: {{heisig}}</p>\n<h4>Vocab</h4>\n<p>{{vocabs}}</p>\n<h4>Sentence</h4>\n<p>{{sentences}}</p>\n",
+            "name": "Reverse",
+            "qfmt": "<h1>Hanzi meaning: {{meaning}}</h1>\n",
+            "did": null,
+            "ord": 1,
+            "bafmt": "",
+            "bqfmt": ""
+          }
+        ],
+        "latexPost": "\\end{document}",
+        "type": 0,
+        "id": 1540966370319,
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n\n.cloze {\n font-weight: bold;\n color: blue;\n}",
+        "mod": 1540966370
+      },
+      "1540966554284": {
+        "vers": [],
+        "name": "zhlib_vocab",
+        "tags": [],
+        "did": 1,
+        "usn": -1,
+        "flds": [
+          {
+            "size": 20,
+            "name": "simplified",
+            "media": [],
+            "rtl": false,
+            "ord": 0,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "traditional",
+            "media": [],
+            "rtl": false,
+            "ord": 1,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "pinyin",
+            "media": [],
+            "rtl": false,
+            "ord": 2,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "english",
+            "media": [],
+            "rtl": false,
+            "ord": 3,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "sentences",
+            "media": [],
+            "rtl": false,
+            "ord": 4,
+            "font": "Arial",
+            "sticky": false
+          },
+          {
+            "size": 20,
+            "name": "note",
+            "media": [],
+            "rtl": false,
+            "ord": 5,
+            "font": "Arial",
+            "sticky": false
+          }
+        ],
+        "sortf": 0,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\begin{document}\n",
+        "tmpls": [
+          {
+            "afmt": "<h1>{{simplified}}</h1>\n<hr>\n<h2>{{pinyin}}</h2>\n<h3>{{english}}</h3>\n<p>Traditional: {{traditional}}</p>\n<p>Frequency: {{frequency}}</p>\n<h4>Sentence</h4>\n<p>{{sentences}}</p>\n",
+            "name": "Forward",
+            "qfmt": "<h1>Vocab: {{simplified}}</h1>\n",
+            "did": null,
+            "ord": 0,
+            "bafmt": "",
+            "bqfmt": ""
+          },
+          {
+            "afmt": "<h1>{{simplified}}</h1>\n<hr>\n<h2>{{pinyin}}</h2>\n<h3>{{english}}</h3>\n<p>Traditional: {{traditional}}</p>\n<p>Frequency: {{frequency}}</p>\n<h4>Sentence</h4>\n<p>{{sentences}}</p>\n",
+            "name": "Reverse",
+            "qfmt": "<h1>Vocab meaning: {{english}}</h1>\n",
+            "did": null,
+            "ord": 1,
+            "bafmt": "",
+            "bqfmt": ""
+          }
+        ],
+        "latexPost": "\\end{document}",
+        "type": 0,
+        "id": 1540966554284,
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n\n.cloze {\n font-weight: bold;\n color: blue;\n}",
+        "mod": 1540966554
+      }
+    },
+    "decks": {
+      "1": {
+        "name": "Default",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1,
+        "mod": 1540966298,
+        "desc": ""
+      },
+      "1540966544219": {
+        "name": "Chinese",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966544219,
+        "mod": 1540966544,
+        "desc": ""
+      },
+      "1540966544220": {
+        "name": "Chinese::Hanzi",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966544220,
+        "mod": 1540966544,
+        "desc": ""
+      },
+      "1540966544221": {
+        "name": "Chinese::Hanzi::tier1",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966544221,
+        "mod": 1540966544,
+        "desc": ""
+      },
+      "1540966544222": {
+        "name": "Chinese::Hanzi::tier1::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966544222,
+        "mod": 1540966544,
+        "desc": ""
+      },
+      "1540966544838": {
+        "name": "Chinese::Hanzi::tier1::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966544838,
+        "mod": 1540966544,
+        "desc": ""
+      },
+      "1540966545718": {
+        "name": "Chinese::Hanzi::tier2",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966545718,
+        "mod": 1540966545,
+        "desc": ""
+      },
+      "1540966545719": {
+        "name": "Chinese::Hanzi::tier2::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966545719,
+        "mod": 1540966545,
+        "desc": ""
+      },
+      "1540966545956": {
+        "name": "Chinese::Hanzi::tier2::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966545956,
+        "mod": 1540966545,
+        "desc": ""
+      },
+      "1540966546287": {
+        "name": "Chinese::Hanzi::tier3",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546287,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546288": {
+        "name": "Chinese::Hanzi::tier3::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546288,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546377": {
+        "name": "Chinese::Hanzi::tier3::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546377,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546532": {
+        "name": "Chinese::Hanzi::tier4",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546532,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546533": {
+        "name": "Chinese::Hanzi::tier4::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546533,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546604": {
+        "name": "Chinese::Hanzi::tier4::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546604,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546702": {
+        "name": "Chinese::Hanzi::tier5",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546702,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546703": {
+        "name": "Chinese::Hanzi::tier5::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546703,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546735": {
+        "name": "Chinese::Hanzi::tier5::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546735,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546805": {
+        "name": "Chinese::Hanzi::tier6",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546805,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546806": {
+        "name": "Chinese::Hanzi::tier6::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546806,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966546838": {
+        "name": "Chinese::Hanzi::tier6::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966546838,
+        "mod": 1540966546,
+        "desc": ""
+      },
+      "1540966563936": {
+        "name": "Chinese::Vocab",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966563936,
+        "mod": 1540966563,
+        "desc": ""
+      },
+      "1540966563937": {
+        "name": "Chinese::Vocab::HSK1",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966563937,
+        "mod": 1540966563,
+        "desc": ""
+      },
+      "1540966563938": {
+        "name": "Chinese::Vocab::HSK1::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966563938,
+        "mod": 1540966563,
+        "desc": ""
+      },
+      "1540966564019": {
+        "name": "Chinese::Vocab::HSK1::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564019,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564263": {
+        "name": "Chinese::Vocab::tier1",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564263,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564264": {
+        "name": "Chinese::Vocab::tier1::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564264,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564396": {
+        "name": "Chinese::Vocab::tier1::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564396,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564608": {
+        "name": "Chinese::Vocab::HSK2",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564608,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564609": {
+        "name": "Chinese::Vocab::HSK2::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564609,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564672": {
+        "name": "Chinese::Vocab::HSK2::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564672,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564837": {
+        "name": "Chinese::Vocab::tier2",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564837,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564838": {
+        "name": "Chinese::Vocab::tier2::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564838,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966564910": {
+        "name": "Chinese::Vocab::tier2::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966564910,
+        "mod": 1540966564,
+        "desc": ""
+      },
+      "1540966565072": {
+        "name": "Chinese::Vocab::HSK3",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565072,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565073": {
+        "name": "Chinese::Vocab::HSK3::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565073,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565164": {
+        "name": "Chinese::Vocab::HSK3::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565164,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565349": {
+        "name": "Chinese::Vocab::tier3",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565349,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565350": {
+        "name": "Chinese::Vocab::tier3::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565350,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565429": {
+        "name": "Chinese::Vocab::tier3::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565429,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565634": {
+        "name": "Chinese::Vocab::HSK4",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565634,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565635": {
+        "name": "Chinese::Vocab::HSK4::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565635,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565733": {
+        "name": "Chinese::Vocab::HSK4::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565733,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565973": {
+        "name": "Chinese::Vocab::tier4",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565973,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966565974": {
+        "name": "Chinese::Vocab::tier4::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966565974,
+        "mod": 1540966565,
+        "desc": ""
+      },
+      "1540966566075": {
+        "name": "Chinese::Vocab::tier4::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566075,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966566340": {
+        "name": "Chinese::Vocab::HSK5",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566340,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966566341": {
+        "name": "Chinese::Vocab::HSK5::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566341,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966566464": {
+        "name": "Chinese::Vocab::HSK5::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566464,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966566746": {
+        "name": "Chinese::Vocab::tier5",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566746,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966566747": {
+        "name": "Chinese::Vocab::tier5::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566747,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966566876": {
+        "name": "Chinese::Vocab::tier5::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966566876,
+        "mod": 1540966566,
+        "desc": ""
+      },
+      "1540966567074": {
+        "name": "Chinese::Vocab::HSK6",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966567074,
+        "mod": 1540966567,
+        "desc": ""
+      },
+      "1540966567075": {
+        "name": "Chinese::Vocab::HSK6::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966567075,
+        "mod": 1540966567,
+        "desc": ""
+      },
+      "1540966567131": {
+        "name": "Chinese::Vocab::HSK6::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966567131,
+        "mod": 1540966567,
+        "desc": ""
+      },
+      "1540966567424": {
+        "name": "Chinese::Vocab::tier6",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966567424,
+        "mod": 1540966567,
+        "desc": ""
+      },
+      "1540966567425": {
+        "name": "Chinese::Vocab::tier6::zh->en",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966567425,
+        "mod": 1540966567,
+        "desc": ""
+      },
+      "1540966567608": {
+        "name": "Chinese::Vocab::tier6::en->zh",
+        "extendRev": 50,
+        "usn": 0,
+        "collapsed": false,
+        "newToday": [
+          0,
+          0
+        ],
+        "timeToday": [
+          0,
+          0
+        ],
+        "dyn": 0,
+        "extendNew": 10,
+        "conf": 1540931682693,
+        "revToday": [
+          0,
+          0
+        ],
+        "lrnToday": [
+          0,
+          0
+        ],
+        "id": 1540966567608,
+        "mod": 1540966567,
+        "desc": ""
+      }
+    },
+    "dconf": {
+      "1": {
+        "name": "Default",
+        "replayq": true,
+        "lapse": {
+          "leechFails": 8,
+          "minInt": 1,
+          "delays": [
+            10
+          ],
+          "leechAction": 0,
+          "mult": 0
+        },
+        "rev": {
+          "perDay": 200,
+          "ivlFct": 1,
+          "maxIvl": 36500,
+          "minSpace": 1,
+          "ease4": 1.3,
+          "bury": false,
+          "fuzz": 0.05
+        },
+        "timer": 0,
+        "maxTaken": 60,
+        "usn": 0,
+        "new": {
+          "separate": true,
+          "delays": [
+            1,
+            10
+          ],
+          "perDay": 20,
+          "ints": [
+            1,
+            4,
+            7
+          ],
+          "initialFactor": 2500,
+          "bury": false,
+          "order": 1
+        },
+        "autoplay": true,
+        "id": 1,
+        "mod": 0
+      },
+      "1540931682693": {
+        "name": "wanki.min",
+        "replayq": true,
+        "lapse": {
+          "leechFails": 8,
+          "minInt": 1,
+          "delays": [
+            10
+          ],
+          "leechAction": 0,
+          "mult": 0
+        },
+        "rev": {
+          "perDay": 200,
+          "fuzz": 0.05,
+          "ivlFct": 1,
+          "maxIvl": 36500,
+          "ease4": 1.3,
+          "bury": false,
+          "minSpace": 1
+        },
+        "timer": 0,
+        "maxTaken": 60,
+        "usn": -1,
+        "new": {
+          "perDay": 10,
+          "delays": [
+            1,
+            10,
+            240,
+            480
+          ],
+          "separate": true,
+          "ints": [
+            1,
+            4,
+            7
+          ],
+          "initialFactor": 2500,
+          "bury": false,
+          "order": 0
+        },
+        "autoplay": true,
+        "id": 1540931682693,
+        "mod": 1540931774,
+        "dyn": false
+      }
+    },
+    "tags": {}
+  },
+  "notes": {
+    "id": 1540966537995,
+    "guid": "qtm(Wtf/s]",
+    "mid": 1540966370319,
+    "mod": 1540966538000,
+    "usn": -1,
+    "tags": "zhlib hanzi tier1 2018-10-31",
+    "flds": "\u58f0\u001fsheng1\u001fsound/voice/(a measure word, used for sounds)/tone/noise\u001f1411\u001fWK_L5\u001f195\u001f<ul>\n<li>\u4e2a \u500b [ge4] individual/this/that/size/classifier for people or objects in general</li>\n<li>\u58f0\u97f3 \u8072\u97f3 [sheng1 yin1] voice/sound/CL:\u500b|\u4e2a[ge4]</li>\n<li>\u58f0 \u8072 [sheng1] sound/voice/tone/noise/classifier for sounds</li>\n<li>\u58f0\u660e \u8072\u660e [sheng1 ming2] to state/to declare/statement/declaration/CL:\u9805|\u9879[xiang4],\u4efd[fen4]</li>\n<li>\u5927\u58f0 \u5927\u8072 [da4 sheng1] loud voice/in a loud voice/loudly</li>\n<li>\u58f0\u79f0 \u8072\u7a31 [sheng1 cheng1] to claim/to state/to proclaim/to assert</li>\n<li>\u548c\u58f0 \u548c\u8072 [he2 sheng1] harmony (music)</li>\n<li>\u58f0\u8bf4 \u8072\u8aaa [sheng1 shuo1] to narrate</li>\n<li>\u4e2d\u58f0 \u4e2d\u8072 [zhong1 sheng1] medial (i.e. middle vowel of a syllable in Asian phonetics)</li>\n<li>\u4e0a\u58f0 \u4e0a\u8072 [shang3 sheng1] falling and rising tone/third tone in modern Mandarin</li>\n</ul>\n\u001f<ul>\n<li>\u8bf7\u5927\u58f0\u4e00\u70b9\u3002 [Q\u01d0ng d\u00e0sh\u0113ng y\u012bdi\u01cen.] A little louder, please.</li>\n<li>\u4ed6\u5927\u58f0\u56de\u7b54\u4e86\u8001\u5e08\u7684\u95ee\u9898\u3002 [T\u0101 d\u00e0sh\u0113ng hu\u00edd\u00e1 le l\u01ceosh\u012b de w\u00e8nt\u00ed.] He loudly answered the teacher's question.</li>\n<li>\u4ed6\u8bf4\u5f97\u5f88\u5927\u58f0\u3002 [t\u0101 shu\u014d de h\u011bn d\u00e0sh\u0113ng. (shou le should also say what was said)] He spoke very loudly.</li>\n<li>\u6211\u4e5f\u559c\u6b22\u90a3\u4e2a\u6b4c\u624b\u7684\u58f0\u97f3\u3002 [w\u01d2 y\u011b x\u01d0hu\u0101n n\u00e0 ge g\u0113sh\u01d2u de sh\u0113ngy\u012bn .] I like that singer's voice, too.</li>\n<li>\u8001\u5e08\u58f0\u660e\u660e\u5929\u4e0d\u80fd\u8fdf\u5230\u3002 [L\u01ceosh\u012b sh\u0113ngm\u00edng m\u00edngti\u0101n b\u00f9 n\u00e9ng ch\u00edd\u00e0o.] The teacher announced that no one can be late tomorrow.</li>\n<li>\u653f\u5e9c\u5f53\u5c40\u53d1\u8868\u4e86\u4e00\u4e2a\u58f0\u660e\u3002 [Zh\u00e8ngf\u01d4 d\u0101ngj\u00fa f\u0101bi\u01ceo le y\u012bge sh\u0113ngm\u00edng.] The government authorities put out an announcement.</li>\n<li>\u53d1\u58f0\u4e0d\u5bb9\u6613\u3002 [F\u0101sh\u0113ng b\u00f9 r\u00f3ngy\u00ec.] It's not easy to pronounce the tones.</li>\n<li>\u4ed6\u7761\u7740\u7684\u65f6\u5019\uff0c\u6253\u547c\u58f0\u5f88\u54cd\u3002 [t\u0101 shu\u00eczh\u00e1o de sh\u00edhou , d\u01ceh\u016b sh\u0113ng h\u011bn xi\u01ceng .] He was snoring loudly while he slept.</li>\n<li>\u4ed6\u9ad8\u5174\u5f97\u5927\u58f0\u5450\u558a\u3002 [T\u0101 g\u0101ox\u00ecng de d\u00e0sh\u0113ng n\u00e0h\u01cen.] He is so happy that he shouted out loud.</li>\n<li>\u653f\u5e9c\u53d1\u8868\u4e25\u6b63\u58f0\u660e\u3002 [Zh\u00e8ngf\u01d4 f\u0101bi\u01ceo y\u00e1nzh\u00e8ng sh\u0113ngm\u00edng.] The government put out a stern declaration.</li>\n</ul>\n\u001f",
+    "sfld": "\u58f0",
+    "csum": 2119003200,
+    "flags": 0,
+    "data": ""
+  },
+  "cards": {
+    "id": 1540966538004,
+    "nid": 1540966537995,
+    "did": 1,
+    "ord": 0,
+    "mod": 1540966538,
+    "usn": -1,
+    "type": 0,
+    "queue": 0,
+    "due": 1540966537995,
+    "ivl": 0,
+    "factor": 0,
+    "reps": 0,
+    "lapses": 0,
+    "left": 0,
+    "odue": 0,
+    "odid": 0,
+    "flags": 0,
+    "data": ""
+  },
+  "revlog": null,
+  "graves": {
+    "usn": -1,
+    "oid": 1540966406171,
+    "type": 0
+  },
+  "sqlite_stat1": {
+    "tbl": "col",
+    "idx": null,
+    "stat": "1"
+  }
+}
