@@ -168,3 +168,4 @@ pip-selfcheck.json
 *.anki2
 *.apkg
 *.db
+setup.py

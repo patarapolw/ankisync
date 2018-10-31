@@ -7,6 +7,8 @@ Doing what AnkiConnect cannot do, including
 - Setting card statistics
 - Note ids to Card ids
 
+But of course, this is very unsafe compared to pure AnkiConnect. I will not hold liability to damage it may cost.
+
 ## Usage
 
 Please close your `Anki` application first before doing this!
@@ -17,13 +19,13 @@ from ankisync.builder import FieldBuilder, TemplateBuilder
 with Anki() as a:
     a.add_model(
         name='foo',
-        fields=[FieldBuilder(name, i).get() for i, name in enumerate(['field_a', 'field_b', 'field_c'])],
+        fields=[FieldBuilder(name, i) for i, name in enumerate(['field_a', 'field_b', 'field_c'])],
         templates=[TemplateBuilder(
             name=k,
             question=q,
             answer=a,
             order=i
-        ).get() for i, (k, [q,a]) in enumerate({
+        ) for i, (k, [q,a]) in enumerate({
             'Forward': [QUESTION1, ANSWER1],
             'Reverse': [QUESTION2, ANSWER2]
         }.items())]
@@ -41,13 +43,13 @@ with Apkg('bar.apkg') as a:
     model_id = a.init(
         first_model=ModelBuilder(
             name='foo',
-            fields=[FieldBuilder(name, i).get() for i, name in enumerate(['field_a', 'field_b', 'field_c'])],
+            fields=[FieldBuilder(name, i) for i, name in enumerate(['field_a', 'field_b', 'field_c'])],
             templates=[TemplateBuilder(
                 name=k,
                 question=q,
                 answer=a,
                 order=i
-            ).get() for i, (k, [q,a]) in enumerate({
+            ) for i, (k, [q,a]) in enumerate({
                 'Forward': [QUESTION1, ANSWER1],
                 'Reverse': [QUESTION2, ANSWER2]
             }.items())]
