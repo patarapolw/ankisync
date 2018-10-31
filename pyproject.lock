@@ -8,27 +8,6 @@ python-versions = "*"
 version = "1.4.3"
 
 [[package]]
-category = "main"
-description = "Screen-scraping library"
-name = "beautifulsoup4"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "4.6.3"
-
-[[package]]
-category = "main"
-description = "Dummy package for Beautiful Soup"
-name = "bs4"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "0.0.1"
-
-[package.dependencies]
-beautifulsoup4 = "*"
-
-[[package]]
 category = "dev"
 description = "Python package for providing Mozilla's CA Bundle."
 name = "certifi"
@@ -175,6 +154,15 @@ python = "<3"
 
 [[package]]
 category = "main"
+description = "TinyDB is a tiny, document oriented database optimized for your happiness :)"
+name = "tinydb"
+optional = false
+platform = "*"
+python-versions = "*"
+version = "3.11.1"
+
+[[package]]
+category = "main"
 description = "Type Hints for Python"
 name = "typing"
 optional = false
@@ -204,14 +192,12 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.32.2"
 
 [metadata]
-content-hash = "d8b449edf07a9c41b2e86e5a82a766f24c5a414f9643e8ebc30725556eb0963c"
+content-hash = "6d1e71c4e2a1d35411adb0dcda14244deb9ebdeb6a4b9de5fd9074812b1e9bc2"
 platform = "*"
 python-versions = "*"
 
 [metadata.hashes]
 appdirs = ["9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92", "d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"]
-beautifulsoup4 = ["194ec62a25438adcb3fdb06378b26559eda1ea8a747367d34c33cef9c7f48d57", "90f8e61121d6ae58362ce3bed8cd997efb00c914eae0ff3d363c32f9a9822d10", "f0abd31228055d698bb392a826528ea08ebb9959e6bea17c606fd9c9009db938"]
-bs4 = ["36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a"]
 certifi = ["339dc09518b07e2fa7eda5450740925974815557727d6bd35d319c1524a04a4c", "6d58c986d22b038c8c0df30d639f23a3e6d172a05c3583e766f4c0b785c0986a"]
 chardet = ["84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae", "fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"]
 idna = ["156a6814fb5ac1fc6850fb002e0852d56c0c8d2531923a51032d1b70760e186e", "684a38a6f903c1d71d6d5fac066b58d7768af4de2b832e426ec79c30daa94a16"]
@@ -224,6 +210,7 @@ pyyaml = ["3d7da3009c0f3e783b2c873687652d83b1bbfd5c88e9813fb7e5b03c0dd3108b", "3
 requests = ["99dcfdaaeb17caf6e526f32b6a7b780461512ab3f1d992187801694cba42770c", "a84b8c9ab6239b578f22d1c21d51b696dcfe004032bb80ea832398d6909d7279"]
 scandir = ["04b8adb105f2ed313a7c2ef0f1cf7aff4871aa7a1883fa4d8c44b5551ab052d6", "1444134990356c81d12f30e4b311379acfbbcd03e0bab591de2696a3b126d58e", "1b5c314e39f596875e5a95dd81af03730b338c277c54a454226978d5ba95dbb6", "346619f72eb0ddc4cf355ceffd225fa52506c92a2ff05318cfabd02a144e7c4e", "44975e209c4827fc18a3486f257154d34ec6eaec0f90fef0cca1caa482db7064", "61859fd7e40b8c71e609c202db5b0c1dbec0d5c7f1449dec2245575bdc866792", "a5e232a0bf188362fa00123cc0bb842d363a292de7126126df5527b6a369586a", "c14701409f311e7a9b7ec8e337f0815baf7ac95776cc78b419a1e6d49889a383", "c7708f29d843fc2764310732e41f0ce27feadde453261859ec0fca7865dfc41b", "c9009c527929f6e25604aec39b0a43c3f831d2947d89d6caaab22f057b7055c8", "f5c71e29b4e2af7ccdc03a020c626ede51da471173b4a6ad1e904f2b2e04b4bd"]
 six = ["70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9", "832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"]
+tinydb = ["2b3dfb59dfb981bf719773bbf78e10ff2081104fe62793d1c4bdbd6f9c62a843", "643807a7793c6ee358d7d7b548ea0828660bff1899b178307bb862e97df645b1"]
 typing = ["4027c5f6127a6267a435201981ba156de91ad0d1d98e9ddc2aa173453453492d", "57dcf675a99b74d64dacf6fba08fb17cf7e3d5fdff53d4a30ea2a5e7e52543d4", "a4c8473ce11a65999c8f59cb093e70686b6c84c98df58c1dae9b3b196089858a"]
 urllib3 = ["41c3db2fc01e5b907288010dec72f9d0a74e37d6994e6eb56849f59fea2265ae", "8819bba37a02d143296a4d032373c4dd4aca11f6d4c9973335ca75f9c8475f59"]
 wheel = ["196c9842d79262bb66fcf59faa4bd0deb27da911dbc7c6cdca931080eb1f0783", "c93e2d711f5f9841e17f53b0e6c0ff85593f3b416b6eec7a9452041a59a42688"]

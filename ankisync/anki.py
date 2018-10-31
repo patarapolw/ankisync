@@ -2,6 +2,8 @@ from typing import Union
 import warnings
 import psutil
 from time import time
+import tinydb as tdb
+from tinydb.storages import MemoryStorage
 
 from . import db
 from .dir import get_collection_path
@@ -26,6 +28,8 @@ class Anki:
         }, **kwargs)
 
         self.disallow_unsafe = disallow_unsafe
+
+        self.tdb = tdb.TinyDB(storage=MemoryStorage)
 
     def __enter__(self):
         return self
@@ -56,6 +60,16 @@ class Anki:
 
             header = [f['name'] for f in db_model['flds']]
             header += ['tags', 'deck', 'model', 'template', 'order']
+
+            yield dict(zip(header, record))
+
+    def iter_notes(self):
+        for db_note in db.Notes.select():
+            record = db_note.flds
+            record = [db_note.id, db_note.mid] + record + [' '.join(db_note.tags)]
+
+            header = self.model_field_names_by_id(db_note.mid)
+            header = ['nid', 'mid'] + header + ['tags']
 
             yield dict(zip(header, record))
 
@@ -121,6 +135,22 @@ class Anki:
         return new_model.id
 
     @classmethod
+    def iter_model(cls, model_id):
+        header = cls.model_field_names_by_id(model_id)
+        for db_note in db.Notes.select().where(db.Notes.mid == model_id):
+            yield dict(
+                id=db_note.id,
+                **dict(zip(header, db_note.flds))
+            )
+
+    def get_tinydb_table(self):
+        if len(self.tdb) == 0:
+            for note_data in self.iter_notes():
+                self.tdb.insert(note_data)
+
+        return self.tdb
+
+    @classmethod
     def change_deck_by_id(cls, card_ids, deck_id)->None:
         db.Cards.update(did=deck_id).where(db.Cards.id.in_(card_ids)).execute()
 
@@ -164,11 +194,11 @@ class Anki:
         return dict(_get_dict())
 
     @classmethod
-    def card_set_next_review(cls, card_id, type, queue, due):
+    def card_set_next_review(cls, card_id, type_, queue, due):
         """
 
         :param card_id:
-        :param type:
+        :param type_:
         -- 0=new, 1=learning, 2=due, 3=filtered
         :param queue:
         -- -3=sched buried, -2=user buried, -1=suspended,
@@ -182,7 +212,7 @@ class Anki:
         :return:
         """
         db_card = db.Cards.get(id=card_id)
-        db_card.type = type
+        db_card.type = type_
         db_card.queue = queue
         db_card.due = due
         db_card.save()
@@ -243,6 +273,132 @@ class Anki:
                 yield d['name'], int(dconf_id)
 
         return dict(_gen_dict())
+
+    @classmethod
+    def note_info(cls, note_id):
+        db_note = db.Notes.get(id=note_id)
+        header, row = cls._raw_note_info(db_note)
+
+        return {
+            'noteId': db_note.id,
+            'modelId': db_note.mid,
+            'tags': db_note.tags,
+            'fields': dict(zip(header, row))
+        }
+
+    @classmethod
+    def _raw_note_info(cls, db_note):
+        db_model = cls.model_by_id(db_note.mid)
+
+        return db_model['flds'], db_note.flds
+
+    def _extract_ac_note(self, ac_note):
+        data = ac_note['fields']
+
+        model_id = ac_note.get('modelId', None)
+        if model_id is None:
+            self._warning()
+
+            model_name = ac_note['modelName']
+            model_id = self.model_names_and_ids()[model_name]
+
+        return data, model_id
+
+    def upsert_note(self, ac_note, defaults_key='defaults', _lock=True):
+        """
+
+        :param ac_note: ac_note['data'] uses the same format as
+        http://docs.peewee-orm.com/en/latest/peewee/api.html?highlight=get_or_create#Model.get_or_create
+        :param defaults_key:
+        :param _lock:
+        :return:
+        """
+        def _atomic_action():
+            for note_id in matching_ids:
+                self.update_note_fields(note_id=note_id, fields=data)
+
+        data, model_id = self._extract_ac_note(ac_note)
+        tdb_table = self.get_tinydb_table()
+        original_data = data.copy()
+        data.update(data.pop(defaults_key))
+
+        matching_t_doc_ids = tdb_table.upsert(data,
+                                              self._build_tdb_query(original_data,
+                                                                    model_id=model_id,
+                                                                    _skip=defaults_key))
+
+        if matching_t_doc_ids:
+            matching_ids = [self.tdb.get(doc_id=doc_id)['nid'] for doc_id in matching_t_doc_ids]
+            if _lock:
+                with db.database.atomic():
+                    _atomic_action()
+            else:
+                _atomic_action()
+
+            return matching_ids
+        else:
+            return [self._add_note(data, model_id, ac_note)]
+
+    def upsert_notes(self, ac_notes, defaults_key='defaults'):
+        note_ids_2d = []
+
+        with db.database.atomic():
+            for ac_note in ac_notes:
+                note_ids_2d.append(self.upsert_note(ac_note, defaults_key=defaults_key, _lock=False))
+
+        return note_ids_2d
+
+    def search_notes(self, conditions):
+        return self.get_tinydb_table().search(self._build_tdb_query(conditions))
+
+    @staticmethod
+    def _build_tdb_query(data, model_id=None, _skip=None):
+        query = None
+        for k, v in data.items():
+            if k != _skip:
+                if query is None:
+                    query = (tdb.Query()[k] == v)
+                else:
+                    query &= (tdb.Query()[k] == v)
+
+        if model_id:
+            query &= (tdb.Query()['mid'] == model_id)
+
+        return query
+
+    def _add_note(self, data, model_id, ac_note):
+        deck_id = ac_note.get('deckId', None)
+        if deck_id is None:
+            self._warning()
+
+            deck_name = ac_note['deckName']
+            deck_id = self.deck_names_and_ids().get(deck_name, None)
+
+            if deck_id is None:
+                deck_id = self.create_deck(deck_name, conf=ac_note.get('dconf', 1))
+
+        tags = ac_note.get('tags', [])
+        model_field_names = self.model_field_names_by_id(model_id)
+
+        first_note = NoteBuilder(model_id=model_id,
+                                 model_field_names=model_field_names,
+                                 data=data,
+                                 tags=tags)
+        db_notes = db.Notes.create(**first_note)
+        first_note.id = db_notes.id
+
+        for i, template_name in enumerate(self.model_template_names_by_id(model_id)):
+            first_card = CardBuilder(first_note, deck_id, template=i)
+            db.Cards.create(**first_card)
+
+        tdb_table = self.get_tinydb_table()
+        tdb_table.insert({
+            'nid': db_notes.id,
+            'mid': model_id,
+            **data
+        })
+
+        return db_notes.id
 
     ################################
     # Original AnkiConnect Methods #
@@ -392,40 +548,9 @@ class Anki:
     #     raise NotImplementedError
 
     def add_note(self, ac_note):
-        deck_id = ac_note.get('deckId', None)
-        if deck_id is None:
-            self._warning()
+        data, model_id = self._extract_ac_note(ac_note)
 
-            deck_name = ac_note['deckName']
-            deck_id = self.deck_names_and_ids().get(deck_name, None)
-
-            if deck_id is None:
-                deck_id = self.create_deck(deck_name, conf=ac_note.get('dconf', 1))
-
-        model_id = ac_note.get('modelId', None)
-        if model_id is None:
-            self._warning()
-
-            model_name = ac_note['modelName']
-            model_id = self.model_names_and_ids()[model_name]
-
-        data = ac_note['fields']
-        tags = ac_note.get('tags', [])
-
-        model_field_names = self.model_field_names_by_id(model_id)
-
-        first_note = NoteBuilder(model_id=model_id,
-                                 model_field_names=model_field_names,
-                                 data=data,
-                                 tags=tags)
-        db_notes = db.Notes.create(**first_note)
-        first_note.id = db_notes.id
-
-        for i, template_name in enumerate(self.model_template_names_by_id(model_id)):
-            first_card = CardBuilder(first_note, deck_id, template=i)
-            db.Cards.create(**first_card)
-
-        return db_notes.id
+        return self._add_note(data, model_id, ac_note)
 
     def add_notes(self, ac_notes):
         return [self.add_note(ac_note) for ac_note in ac_notes]
@@ -482,17 +607,7 @@ class Anki:
 
     @classmethod
     def notes_info(cls, note_ids):
-        all_info = list()
-        for db_note in db.Notes.select().where(db.Notes.id.in_(note_ids)):
-            db_model = cls.model_by_id(db_note.mid)
-            all_info.append({
-                'noteId': db_note.id,
-                'modelId': db_note.mid,
-                'tags': db_note.tags,
-                'fields': dict(zip(db_model['flds'], db_note.flds))
-            })
-
-        return all_info
+        return [cls.note_info(note_id) for note_id in note_ids]
 
     @classmethod
     def suspend(cls, card_ids):

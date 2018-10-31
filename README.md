@@ -1,8 +1,12 @@
 # ankisync
 
+[![PyPI version shields.io](https://img.shields.io/pypi/v/ankisync.svg)](https://pypi.python.org/pypi/ankisync/)
+[![PyPI license](https://img.shields.io/pypi/l/ankisync.svg)](https://pypi.python.org/pypi/ankisync/)
+
 Doing what AnkiConnect cannot do, including
 - Creating new `*.apkg`
 - Creating new note type / model
+- Upserting notes
 - Setting next review
 - Setting card statistics
 - Note ids to Card ids
