@@ -70,7 +70,7 @@ with Apkg('bar.apkg') as a:
     })
 ```
 
-For the example of how I use it in action, see https://github.com/patarapolw/zhlib/blob/09aa27157e6876398aa14f12b2917bd9dafee959/zhlib/export.py#L56
+For the example of how I use it in action, see https://github.com/patarapolw/zhlib/blob/master/zhlib/export.py
 
 ## Installation
 
