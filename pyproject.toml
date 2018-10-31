@@ -3,6 +3,10 @@ name = "ankisync"
 version = "0.1.2"
 description = "Doing in Anki what AnkiConnect cannot do"
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/patarapolw/ankisync"
+homepage = "https://github.com/patarapolw/ankisync"
+keywords = ["anki-flashcards"]
 
 [tool.poetry.dependencies]
 python = "*"
