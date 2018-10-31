@@ -33,6 +33,32 @@ class Anki:
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
+    def __iter__(self):
+        for db_card in db.Cards.select():
+            db_note = db.Notes.get(id=db_card.nid)
+            record = db_note.flds
+            record += [' '.join(db_note.tags)]
+
+            db_col = db.Col.get()
+
+            db_deck = db_col.decks[str(db_card.did)]
+            record += db_deck['name']
+
+            db_model = db_col.models[str(db_note.mid)]
+            model_name = db_model['name']
+            template_names = [f['name'] for f in db_model['tmpls']]
+            try:
+                template = template_names[db_card.ord]
+            except IndexError:
+                template = template_names[0]
+
+            record += [model_name, template, db_card.ord]
+
+            header = [f['name'] for f in db_model['flds']]
+            header += ['tags', 'deck', 'model', 'template', 'order']
+
+            yield dict(zip(header, record))
+
     def _warning(self):
         msg = 'Please use _id() methods instead.'
 
@@ -42,7 +68,6 @@ class Anki:
             warnings.warn(msg)
         else:
             pass
-
 
     @classmethod
     def init(cls,
