@@ -9,16 +9,20 @@ from .anki import Anki
 
 
 class Apkg(Anki):
-    def __init__(self, filename):
+    def __init__(self, filename, **kwargs):
         self.filename = str(filename)
         self.temp_dir = mkdtemp()
-        with ZipFile(self.filename) as zf:
-            zf.extractall(path=self.temp_dir)
+        try:
+            with ZipFile(self.filename) as zf:
+                zf.extractall(path=self.temp_dir)
+
+            self.media = json.loads(Path(self.temp_dir).joinpath('media').read_text())
+        except FileNotFoundError:
+            self.media = dict()
 
         atexit.register(shutil.rmtree, self.temp_dir, ignore_errors=True)
 
-        self.media = json.loads(Path(self.temp_dir).joinpath('media').read_text())
-        super(Apkg, self).__init__(str(Path(self.temp_dir).joinpath('collection.anki2')))
+        super(Apkg, self).__init__(str(Path(self.temp_dir).joinpath('collection.anki2')), **kwargs)
 
     def __enter__(self):
         return self

@@ -96,7 +96,7 @@ class Anki:
     @classmethod
     def init(cls,
              first_model: Union[ModelBuilder, dict],
-             first_deck: Union[DeckBuilder, str],
+             first_deck: Union[DeckBuilder, str]='Default',
              first_dconf: DConfBuilder=None,
              first_note_data=None):
         anki_db.database.create_tables([anki_db.Col, anki_db.Notes, anki_db.Cards, anki_db.Revlog, anki_db.Graves])
@@ -105,8 +105,8 @@ class Anki:
             first_model = ModelBuilder(
                 name=first_model.pop('name'),
                 fields=first_model.pop('fields'),
-                templates=first_model.pop('template'),
-                type_=first_model.pop('type_'),
+                templates=first_model.pop('templates'),
+                type_=first_model.pop('type_', 0),
                 **first_model
             )
 
@@ -121,6 +121,12 @@ class Anki:
 
         if first_dconf is None:
             first_dconf = DConfBuilder('Default')
+        elif not isinstance(first_dconf, DConfBuilder):
+            assert isinstance(first_dconf, dict)
+            first_dconf = DConfBuilder(
+                name=first_dconf.pop('name'),
+                **first_dconf
+            )
 
         db_dconf = dict()
         db_dconf[str(first_dconf.id)] = first_dconf
@@ -142,7 +148,7 @@ class Anki:
             first_note.id = db_notes.id
 
             for template_name in first_model.template_names:
-                first_card = CardBuilder(first_note, first_deck.id, template_name)
+                first_card = CardBuilder(first_note, first_deck.id, model=first_model, template=template_name)
                 anki_db.Cards.create(**first_card)
 
     @classmethod
