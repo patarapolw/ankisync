@@ -5,7 +5,7 @@ from time import time
 import tinydb as tdb
 from tinydb.storages import MemoryStorage
 
-from . import db
+from . import anki_db
 from .dir import get_collection_path
 from .builder.models import ModelBuilder
 from .builder.decks import DeckBuilder, DConfBuilder
@@ -23,7 +23,7 @@ class Anki:
                 warnings.warn(e)
             kwargs.pop('account_name')
 
-        db.database.init(anki2_path, pragmas={
+        anki_db.database.init(anki2_path, pragmas={
             'foreign_keys': 0
         }, **kwargs)
 
@@ -38,12 +38,26 @@ class Anki:
         pass
 
     def __iter__(self):
-        for db_card in db.Cards.select():
-            db_note = db.Notes.get(id=db_card.nid)
-            record = db_note.flds
-            record += [' '.join(db_note.tags)]
+        yield from self.iter_notes()
 
-            db_col = db.Col.get()
+    def iter_notes(self):
+        for db_note in anki_db.Notes.select():
+            record = db_note.flds
+            record = [db_note.id, db_note.mid] + record + [db_note.tags]
+
+            header = self.model_field_names_by_id(db_note.mid)
+            header = ['_nid', '_mid'] + header + ['_tags']
+
+            yield dict(zip(header, record))
+
+    @classmethod
+    def iter_cards(cls):
+        for db_card in anki_db.Cards.select():
+            db_note = anki_db.Notes.get(id=db_card.nid)
+            record = db_note.flds
+            record += db_note.tags
+
+            db_col = anki_db.Col.get()
 
             db_deck = db_col.decks[str(db_card.did)]
             record += db_deck['name']
@@ -63,15 +77,11 @@ class Anki:
 
             yield dict(zip(header, record))
 
-    def iter_notes(self):
-        for db_note in db.Notes.select():
-            record = db_note.flds
-            record = [db_note.id, db_note.mid] + record + [' '.join(db_note.tags)]
-
-            header = self.model_field_names_by_id(db_note.mid)
-            header = ['nid', 'mid'] + header + ['tags']
-
-            yield dict(zip(header, record))
+    @classmethod
+    def iter_excel(cls):
+        for d in cls.iter_cards():
+            d['tags'] = ' '.join(d['tags'])
+            yield d
 
     def _warning(self):
         msg = 'Please use _id() methods instead.'
@@ -85,14 +95,26 @@ class Anki:
 
     @classmethod
     def init(cls,
-             first_model: ModelBuilder,
-             first_deck: DeckBuilder,
+             first_model: Union[ModelBuilder, dict],
+             first_deck: Union[DeckBuilder, str],
              first_dconf: DConfBuilder=None,
              first_note_data=None):
-        db.database.create_tables([db.Col, db.Notes, db.Cards, db.Revlog, db.Graves])
+        anki_db.database.create_tables([anki_db.Col, anki_db.Notes, anki_db.Cards, anki_db.Revlog, anki_db.Graves])
+
+        if not isinstance(first_model, ModelBuilder):
+            first_model = ModelBuilder(
+                name=first_model.pop('name'),
+                fields=first_model.pop('fields'),
+                templates=first_model.pop('template'),
+                type_=first_model.pop('type_'),
+                **first_model
+            )
 
         db_models = dict()
         db_models[str(first_model.id)] = first_model
+
+        if isinstance(first_deck, str):
+            first_deck = DeckBuilder(first_deck)
 
         db_decks = dict()
         db_decks[str(first_deck.id)] = first_deck
@@ -103,29 +125,29 @@ class Anki:
         db_dconf = dict()
         db_dconf[str(first_dconf.id)] = first_dconf
 
-        if not db.Col.get_or_none():
-            db.Col.create(
+        if not anki_db.Col.get_or_none():
+            anki_db.Col.create(
                 models=db_models,
                 decks=db_decks,
                 dconf=db_dconf
             )
 
-        if not db.Notes.get_or_none():
+        if not anki_db.Notes.get_or_none():
             if first_note_data is None:
                 first_note_data = dict()
             first_note = NoteBuilder(model_id=first_model.id,
                                      model_field_names=first_model.field_names,
                                      data=first_note_data)
-            db_notes = db.Notes.create(**first_note)
+            db_notes = anki_db.Notes.create(**first_note)
             first_note.id = db_notes.id
 
             for template_name in first_model.template_names:
                 first_card = CardBuilder(first_note, first_deck.id, template_name)
-                db.Cards.create(**first_card)
+                anki_db.Cards.create(**first_card)
 
     @classmethod
     def add_model(cls, name, fields, templates, **kwargs):
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_models = db_col.models
         new_model = ModelBuilder(name, fields, templates, **kwargs)
         db_models[str(new_model.id)] = new_model
@@ -137,7 +159,7 @@ class Anki:
     @classmethod
     def iter_model(cls, model_id):
         header = cls.model_field_names_by_id(model_id)
-        for db_note in db.Notes.select().where(db.Notes.mid == model_id):
+        for db_note in anki_db.Notes.select().where(anki_db.Notes.mid == model_id):
             yield dict(
                 id=db_note.id,
                 **dict(zip(header, db_note.flds))
@@ -145,24 +167,24 @@ class Anki:
 
     def get_tinydb_table(self):
         if len(self.tdb) == 0:
-            for note_data in self.iter_notes():
+            for note_data in self:
                 self.tdb.insert(note_data)
 
         return self.tdb
 
     @classmethod
     def change_deck_by_id(cls, card_ids, deck_id)->None:
-        db.Cards.update(did=deck_id).where(db.Cards.id.in_(card_ids)).execute()
+        anki_db.Cards.update(did=deck_id).where(anki_db.Cards.id.in_(card_ids)).execute()
 
     @classmethod
     def delete_decks_by_id(cls, deck_ids, cards_too=False)->None:
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_decks = db_col.decks
 
         for deck_id in deck_ids:
             db_decks.pop(str(deck_id))
             if cards_too:
-                for db_card in db.Cards.select().where(db.Cards.did == int(deck_id)):
+                for db_card in anki_db.Cards.select().where(anki_db.Cards.did == int(deck_id)):
                     db_card.delete_instance()
 
         db_col.decks = db_decks
@@ -170,7 +192,7 @@ class Anki:
 
     @classmethod
     def model_by_id(cls, model_id):
-        return db.Col.get().models[str(model_id)]
+        return anki_db.Col.get().models[str(model_id)]
 
     @classmethod
     def model_field_names_by_id(cls, model_id):
@@ -185,10 +207,12 @@ class Anki:
     @classmethod
     def note_to_cards(cls, note_id):
         def _get_dict():
-            db_note = db.Notes.get(id=note_id)
+            db_note = anki_db.Notes.get(id=note_id)
             template_names = cls.model_template_names_by_id(db_note.mid)
 
-            for c in db.Cards.select(db.Cards.id, db.Cards.ord, db.Cards.nid).where(db.Cards.nid == note_id):
+            for c in anki_db.Cards\
+                    .select(anki_db.Cards.id, anki_db.Cards.ord, anki_db.Cards.nid)\
+                    .where(anki_db.Cards.nid == note_id):
                 yield template_names[c.ord], c.id
 
         return dict(_get_dict())
@@ -211,7 +235,7 @@ class Anki:
         --   learning: integer timestamp
         :return:
         """
-        db_card = db.Cards.get(id=card_id)
+        db_card = anki_db.Cards.get(id=card_id)
         db_card.type = type_
         db_card.queue = queue
         db_card.due = due
@@ -247,13 +271,13 @@ class Anki:
            --  0=learn, 1=review, 2=relearn, 3=cram
         :return:
         """
-        with db.database.atomic():
-            db_card = db.Cards.get(id=card_id)
+        with anki_db.database.atomic():
+            db_card = anki_db.Cards.get(id=card_id)
             db_card.reps = reps
             db_card.lapses = lapses
             db_card.save()
 
-            db.Revlog.create(
+            anki_db.Revlog.create(
                 cid=db_card.id,
                 **revlog
             )
@@ -261,22 +285,22 @@ class Anki:
     @classmethod
     def get_deck_config_by_deck_name(cls, deck_name):
         deck_id = cls.deck_names_and_ids()[deck_name]
-        conf_id = db.Col.get().decks[str(deck_id)]['conf']
-        db_dconf = db.Col.get().dconf
+        conf_id = anki_db.Col.get().decks[str(deck_id)]['conf']
+        db_dconf = anki_db.Col.get().dconf
 
         return db_dconf[str(conf_id)]
 
     @classmethod
     def deck_config_names_and_ids(cls):
         def _gen_dict():
-            for dconf_id, d in db.Col.get().dconf.items():
+            for dconf_id, d in anki_db.Col.get().dconf.items():
                 yield d['name'], int(dconf_id)
 
         return dict(_gen_dict())
 
     @classmethod
     def note_info(cls, note_id):
-        db_note = db.Notes.get(id=note_id)
+        db_note = anki_db.Notes.get(id=note_id)
         header, row = cls._raw_note_info(db_note)
 
         return {
@@ -322,15 +346,15 @@ class Anki:
         original_data = data.copy()
         data.update(data.pop(defaults_key))
 
-        matching_t_doc_ids = tdb_table.upsert(data,
+        matching_t_doc_ids = tdb_table.update(data,
                                               self._build_tdb_query(original_data,
                                                                     model_id=model_id,
                                                                     _skip=defaults_key))
 
         if matching_t_doc_ids:
-            matching_ids = [self.tdb.get(doc_id=doc_id)['nid'] for doc_id in matching_t_doc_ids]
+            matching_ids = [self.tdb.get(doc_id=doc_id)['_nid'] for doc_id in matching_t_doc_ids]
             if _lock:
-                with db.database.atomic():
+                with anki_db.database.atomic():
                     _atomic_action()
             else:
                 _atomic_action()
@@ -342,11 +366,11 @@ class Anki:
     def upsert_notes(self, ac_notes, defaults_key='defaults'):
         note_ids_2d = []
 
-        with db.database.atomic():
+        with anki_db.database.atomic():
             for ac_note in ac_notes:
                 note_ids_2d.append(self.upsert_note(ac_note, defaults_key=defaults_key, _lock=False))
 
-        return note_ids_2d
+        return sum(note_ids_2d, [])
 
     def search_notes(self, conditions):
         return self.get_tinydb_table().search(self._build_tdb_query(conditions))
@@ -362,7 +386,7 @@ class Anki:
                     query &= (tdb.Query()[k] == v)
 
         if model_id:
-            query &= (tdb.Query()['mid'] == model_id)
+            query &= (tdb.Query()['_mid'] == model_id)
 
         return query
 
@@ -384,21 +408,22 @@ class Anki:
                                  model_field_names=model_field_names,
                                  data=data,
                                  tags=tags)
-        db_notes = db.Notes.create(**first_note)
-        first_note.id = db_notes.id
+        db_note = anki_db.Notes.create(**first_note)
+        first_note.id = db_note.id
 
         for i, template_name in enumerate(self.model_template_names_by_id(model_id)):
             first_card = CardBuilder(first_note, deck_id, template=i)
-            db.Cards.create(**first_card)
+            anki_db.Cards.create(**first_card)
 
         tdb_table = self.get_tinydb_table()
         tdb_table.insert({
-            'nid': db_notes.id,
-            'mid': model_id,
+            '_nid': db_note.id,
+            '_mid': model_id,
+            '_tags': tags,
             **data
         })
 
-        return db_notes.id
+        return db_note.id
 
     ################################
     # Original AnkiConnect Methods #
@@ -406,12 +431,12 @@ class Anki:
 
     @classmethod
     def deck_names(cls):
-        return [d['name'] for d in db.Col.get().decks.values()]
+        return [d['name'] for d in anki_db.Col.get().decks.values()]
 
     @classmethod
     def deck_names_and_ids(cls):
         def _gen_dict():
-            for did, d in db.Col.get().decks.items():
+            for did, d in anki_db.Col.get().decks.items():
                 yield d['name'], int(did)
 
         return dict(_gen_dict())
@@ -419,9 +444,9 @@ class Anki:
     @classmethod
     def get_decks(cls, card_ids):
         def _gen_dict():
-            for did, d in db.Col.get().decks.items():
-                db_cards = db.Cards.select(db.Cards.id, db.Cards.did)\
-                    .where((db.Cards.did == int(did)) & (db.Cards.id.in_(card_ids)))
+            for did, d in anki_db.Col.get().decks.items():
+                db_cards = anki_db.Cards.select(anki_db.Cards.id, anki_db.Cards.did)\
+                    .where((anki_db.Cards.did == int(did)) & (anki_db.Cards.id.in_(card_ids)))
                 if len(db_cards) > 0:
                     yield d['name'], [c.id for c in db_cards]
 
@@ -429,7 +454,7 @@ class Anki:
 
     @classmethod
     def create_deck(cls, deck_name, desc='', dconf=1, **kwargs):
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_decks = db_col.decks
         existing_decks = cls.deck_names()
 
@@ -471,7 +496,7 @@ class Anki:
 
     @classmethod
     def save_deck_config(cls, config: dict):
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_dconf = db_col.dconf
 
         dconf = DConfBuilder(config.pop('name'), **config)
@@ -485,7 +510,7 @@ class Anki:
     @classmethod
     def set_deck_config_id(cls, deck_names, config_id):
         is_edited = False
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_decks = db_col.decks
 
         for k, v in cls.deck_names_and_ids().items():
@@ -501,7 +526,7 @@ class Anki:
 
     @classmethod
     def clone_deck_config_id(cls, dconf_name, clone_from: int):
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_dconf = db_col.dconf
         new_dconf = DConfBuilder(dconf_name)
         new_dconf.update(db_dconf[str(clone_from)])
@@ -513,7 +538,7 @@ class Anki:
 
     @classmethod
     def remove_deck_config_id(cls, config_id):
-        db_col = db.Col.get()
+        db_col = anki_db.Col.get()
         db_dconf = db_col.dconf
         db_dconf.pop(config_id)
         db_col.dconf = db_dconf
@@ -523,12 +548,12 @@ class Anki:
 
     @classmethod
     def model_names(cls):
-        return [m['name'] for m in db.Col.get().models.values()]
+        return [m['name'] for m in anki_db.Col.get().models.values()]
 
     @classmethod
     def model_names_and_ids(cls):
         def _gen_dict():
-            for mid, m in db.Col.get().models.items():
+            for mid, m in anki_db.Col.get().models.items():
                 yield m['name'], int(mid)
 
         return dict(_gen_dict())
@@ -561,7 +586,7 @@ class Anki:
 
     @classmethod
     def update_note_fields(cls, note_id, fields: dict):
-        db_note = db.Notes.get(id=note_id)
+        db_note = anki_db.Notes.get(id=note_id)
         field_names = cls.model_field_names_by_id(db_note.mid)
         prev_note_fields = db_note.flds
         note_fields = []
@@ -580,23 +605,23 @@ class Anki:
         if isinstance(tags, str):
             tags = [tags]
 
-        db.Notes.update(
-            tags=sorted(set(db.Notes.tags) | set(tags))
-        ).where(db.Notes.id.in_(note_ids))
+        anki_db.Notes.update(
+            tags=sorted(set(anki_db.Notes.tags) | set(tags))
+        ).where(anki_db.Notes.id.in_(note_ids))
 
     @classmethod
     def remove_tags(cls, note_ids, tags: Union[str, list]):
         if isinstance(tags, str):
             tags = [tags]
 
-        db.Notes.update(
-            tags=sorted(set(db.Notes.tags) - set(tags))
-        ).where(db.Notes.id.in_(note_ids))
+        anki_db.Notes.update(
+            tags=sorted(set(anki_db.Notes.tags) - set(tags))
+        ).where(anki_db.Notes.id.in_(note_ids))
 
     @classmethod
     def get_tags(cls):
         all_tags = set()
-        for db_note in db.Notes.select(db.Notes.tags):
+        for db_note in anki_db.Notes.select(anki_db.Notes.tags):
             all_tags.update(db_note.tags)
 
         return sorted(all_tags)
@@ -611,14 +636,14 @@ class Anki:
 
     @classmethod
     def suspend(cls, card_ids):
-        if db.Cards.update(queue=-1).where(db.Cards.id.in_(card_ids)).execute() > 0:
+        if anki_db.Cards.update(queue=-1).where(anki_db.Cards.id.in_(card_ids)).execute() > 0:
             return True
 
         return False
 
     @classmethod
     def unsuspend(cls, card_ids):
-        if db.Cards.update(queue=db.Cards.type).where(db.Cards.id.in_(card_ids)).execute() > 0:
+        if anki_db.Cards.update(queue=anki_db.Cards.type).where(anki_db.Cards.id.in_(card_ids)).execute() > 0:
             return True
 
         return False
@@ -627,7 +652,7 @@ class Anki:
     def are_suspended(cls, card_ids):
         def _gen_list():
             for card_id in card_ids:
-                db_card = db.Cards.get(id=card_id)
+                db_card = anki_db.Cards.get(id=card_id)
                 yield (db_card.queue == -1)
 
         return list(_gen_list())
@@ -636,7 +661,7 @@ class Anki:
     def are_due(cls, card_ids):
         def _gen_list():
             for card_id in card_ids:
-                db_card = db.Cards.get(id=card_id)
+                db_card = anki_db.Cards.get(id=card_id)
                 yield (db_card.type == 2)
 
         return list(_gen_list())
@@ -652,7 +677,7 @@ class Anki:
     @classmethod
     def cards_to_notes(cls, card_ids):
         note_ids = set()
-        for db_card in db.Cards.select(db.Cards.id, db.Cards.nid).where(db.Cards.id.in_(card_ids)):
+        for db_card in anki_db.Cards.select(anki_db.Cards.id, anki_db.Cards.nid).where(anki_db.Cards.id.in_(card_ids)):
             note_ids.update(db_card.nid)
 
         return sorted(note_ids)
@@ -661,7 +686,7 @@ class Anki:
     def cards_info(cls, card_ids):
         all_info = list()
         for card_id in card_ids:
-            db_card = db.Cards.get(id=card_id)
+            db_card = anki_db.Cards.get(id=card_id)
             all_info += cls.notes_info([db_card.nid])
 
         return all_info

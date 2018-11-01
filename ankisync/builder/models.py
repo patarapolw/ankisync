@@ -61,6 +61,19 @@ class ModelBuilder(dict):
     }
     """
     def __init__(self, name, fields, templates, type_=0, **kwargs):
+        if isinstance(fields[0], str):
+            fields = [FieldBuilder(
+                name=name,
+                order=i
+            ) for i, name in enumerate(fields)]
+
+        if isinstance(templates, dict):
+            templates = [TemplateBuilder(
+                name=k,
+                question=q,
+                answer=a,
+                order=i
+            ) for i, (k, (q, a)) in enumerate(templates.items())]
 
         self.id = int(time() * 1000)
         self.name = name

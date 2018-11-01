@@ -19,20 +19,14 @@ Please close your `Anki` application first before doing this!
 
 ```python
 from ankisync.anki import Anki
-from ankisync.builder import FieldBuilder, TemplateBuilder
 with Anki() as a:
     a.add_model(
         name='foo',
-        fields=[FieldBuilder(name, i) for i, name in enumerate(['field_a', 'field_b', 'field_c'])],
-        templates=[TemplateBuilder(
-            name=k,
-            question=q,
-            answer=a,
-            order=i
-        ) for i, (k, [q,a]) in enumerate({
-            'Forward': [QUESTION1, ANSWER1],
-            'Reverse': [QUESTION2, ANSWER2]
-        }.items())]
+        fields=['field_a', 'field_b', 'field_c'],
+        templates={
+            'Forward': (QUESTION1, ANSWER1),
+            'Reverse': (QUESTION2, ANSWER2)
+        }
     )
 ```
 
@@ -42,23 +36,17 @@ Creating a new `*.apkg` is also possible.
 
 ```python
 from ankisync.apkg import Apkg
-from ankisync.builder import FieldBuilder, TemplateBuilder, ModelBuilder, DeckBuilder
 with Apkg('bar.apkg') as a:
     model_id = a.init(
-        first_model=ModelBuilder(
+        first_model=dict(
             name='foo',
-            fields=[FieldBuilder(name, i) for i, name in enumerate(['field_a', 'field_b', 'field_c'])],
-            templates=[TemplateBuilder(
-                name=k,
-                question=q,
-                answer=a,
-                order=i
-            ) for i, (k, [q,a]) in enumerate({
-                'Forward': [QUESTION1, ANSWER1],
-                'Reverse': [QUESTION2, ANSWER2]
-            }.items())]
+            fields=['field_a', 'field_b', 'field_c'],
+            templates={
+                'Forward': (QUESTION1, ANSWER1),
+                'Reverse': (QUESTION2, ANSWER2)
+            }
         ),
-        first_deck=DeckBuilder(name='baz')
+        first_deck='baz'
     )
     a.add_note({
         'modelName': 'foo',
