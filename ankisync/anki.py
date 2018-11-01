@@ -113,12 +113,6 @@ class Anki:
         db_models = dict()
         db_models[str(first_model.id)] = first_model
 
-        if isinstance(first_deck, str):
-            first_deck = DeckBuilder(first_deck)
-
-        db_decks = dict()
-        db_decks[str(first_deck.id)] = first_deck
-
         if first_dconf is None:
             first_dconf = DConfBuilder('Default')
         elif not isinstance(first_dconf, DConfBuilder):
@@ -130,6 +124,12 @@ class Anki:
 
         db_dconf = dict()
         db_dconf[str(first_dconf.id)] = first_dconf
+
+        if isinstance(first_deck, str):
+            first_deck = DeckBuilder(first_deck, dconf=first_dconf.id)
+
+        db_decks = dict()
+        db_decks[str(first_deck.id)] = first_deck
 
         if not anki_db.Col.get_or_none():
             anki_db.Col.create(
