@@ -97,8 +97,8 @@ class Anki:
     def init(cls,
              first_model: Union[ModelBuilder, dict],
              first_deck: Union[DeckBuilder, str]='Default',
-             first_dconf: DConfBuilder=None,
-             first_note_data=None):
+             first_dconf: Union[DConfBuilder, dict]=None,
+             first_note_data: Union[bool, dict]=True):
         anki_db.database.create_tables([anki_db.Col, anki_db.Notes, anki_db.Cards, anki_db.Revlog, anki_db.Graves])
 
         if not isinstance(first_model, ModelBuilder):
@@ -116,7 +116,6 @@ class Anki:
         if first_dconf is None:
             first_dconf = DConfBuilder('Default')
         elif not isinstance(first_dconf, DConfBuilder):
-            assert isinstance(first_dconf, dict)
             first_dconf = DConfBuilder(
                 name=first_dconf.pop('name'),
                 **first_dconf
@@ -138,18 +137,19 @@ class Anki:
                 dconf=db_dconf
             )
 
-        if not anki_db.Notes.get_or_none():
-            if first_note_data is None:
-                first_note_data = dict()
-            first_note = NoteBuilder(model_id=first_model.id,
-                                     model_field_names=first_model.field_names,
-                                     data=first_note_data)
-            db_notes = anki_db.Notes.create(**first_note)
-            first_note.id = db_notes.id
+        if first_note_data:
+            if not anki_db.Notes.get_or_none():
+                if first_note_data is True:
+                    first_note_data = dict()
+                first_note = NoteBuilder(model_id=first_model.id,
+                                         model_field_names=first_model.field_names,
+                                         data=first_note_data)
+                db_notes = anki_db.Notes.create(**first_note)
+                first_note.id = db_notes.id
 
-            for template_name in first_model.template_names:
-                first_card = CardBuilder(first_note, first_deck.id, model=first_model, template=template_name)
-                anki_db.Cards.create(**first_card)
+                for template_name in first_model.template_names:
+                    first_card = CardBuilder(first_note, first_deck.id, model=first_model, template=template_name)
+                    anki_db.Cards.create(**first_card)
 
     @classmethod
     def add_model(cls, name, fields, templates, **kwargs):
@@ -343,9 +343,11 @@ class Anki:
         :param _lock:
         :return:
         """
-        def _atomic_action():
+        def _update_fields():
             for note_id in matching_ids:
                 self.update_note_fields(note_id=note_id, fields=data)
+
+            self.add_tags(note_ids=matching_ids, tags=ac_note.get('tags', []))
 
         data, model_id = self._extract_ac_note(ac_note)
         tdb_table = self.get_tinydb_table()
@@ -361,9 +363,9 @@ class Anki:
             matching_ids = [self.tdb.get(doc_id=doc_id)['_nid'] for doc_id in matching_t_doc_ids]
             if _lock:
                 with anki_db.database.atomic():
-                    _atomic_action()
+                    _update_fields()
             else:
-                _atomic_action()
+                _update_fields()
 
             return matching_ids
         else:
@@ -430,6 +432,11 @@ class Anki:
         })
 
         return db_note.id
+
+    @classmethod
+    def update_note(cls, note_id, data, tags):
+        cls.update_note_fields(note_id, data)
+        cls.add_tags([note_id], tags)
 
     ################################
     # Original AnkiConnect Methods #
@@ -610,10 +617,12 @@ class Anki:
     def add_tags(cls, note_ids, tags: Union[str, list]):
         if isinstance(tags, str):
             tags = [tags]
+        else:
+            tags = list(tags)
 
         anki_db.Notes.update(
-            tags=sorted(set(anki_db.Notes.tags) | set(tags))
-        ).where(anki_db.Notes.id.in_(note_ids))
+            tags=sorted(set(list(anki_db.Notes.tags)) | set(tags))
+        ).where(anki_db.Notes.id.in_(note_ids)).execute()
 
     @classmethod
     def remove_tags(cls, note_ids, tags: Union[str, list]):
