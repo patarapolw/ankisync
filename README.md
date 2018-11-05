@@ -46,7 +46,8 @@ with Apkg('bar.apkg') as a:
                 'Reverse': (QUESTION2, ANSWER2)
             }
         ),
-        first_deck='baz'
+        first_deck='baz',
+        first_note_data=False
     )
     a.add_note({
         'modelName': 'foo',
