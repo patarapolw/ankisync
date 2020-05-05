@@ -38,15 +38,18 @@ class Apkg(Anki):
         with ZipFile(self.filename, 'w') as zf:
             zf.write(str(Path(self.temp_dir).joinpath('collection.anki2')), arcname='collection.anki2')
             for file_path in Path(self.temp_dir).glob('*'):
-                if str(file_path).isdigit():
+                if str(Path(file_path).name).isdigit():
                     zf.write(Path(self.temp_dir).joinpath(file_path).resolve(), arcname=file_path.name)
 
             zf.writestr('media', json.dumps(self.media))
 
     def store_media_file(self, filename, data_binary):
-        media_id = max(int(k) for k in self.media.keys()) + 1
+        if len(self.media.keys()) == 0:
+            media_id = 1
+        else:
+            media_id = max(int(k) for k in self.media.keys()) + 1
 
-        with Path(self.temp_dir).joinpath(str(media_id)).open('rb') as f:
+        with Path(self.temp_dir).joinpath(str(media_id)).open('wb') as f:
             f.write(data_binary)
 
         self.media[str(media_id)] = filename
