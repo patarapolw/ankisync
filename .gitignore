@@ -169,3 +169,5 @@ pip-selfcheck.json
 *.apkg
 *.db
 setup.py
+
+*.ipynb

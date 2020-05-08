@@ -627,8 +627,9 @@ class Anki:
             col.models = m
             col.save()
 
-        db_note.flds = note_fields
-        db_note.save()
+        anki_db.Notes.update(
+            flds=note_fields
+        ).where(anki_db.Notes.id == note_id).execute()
 
     @classmethod
     def add_tags(cls, note_ids, tags: Union[str, list]):
