@@ -7,7 +7,7 @@ from tinydb.storages import MemoryStorage
 
 from . import anki_db
 from .dir import get_collection_path
-from .builder.models import ModelBuilder
+from .builder.models import ModelBuilder, FieldBuilder
 from .builder.decks import DeckBuilder, DConfBuilder
 from .builder.notes import NoteBuilder, CardBuilder
 
@@ -197,7 +197,7 @@ class Anki:
         db_col.save()
 
     @classmethod
-    def model_by_id(cls, model_id):
+    def model_by_id(cls, model_id) -> dict:
         return anki_db.Col.get().models[str(model_id)]
 
     @classmethod
@@ -419,7 +419,7 @@ class Anki:
         db_note = anki_db.Notes.create(**first_note)
         first_note.id = db_note.id
 
-        for i, template_name in enumerate(self.model_template_names_by_id(model_id)):
+        for i, _ in enumerate(self.model_template_names_by_id(model_id)):
             first_card = CardBuilder(first_note, deck_id, template=i)
             anki_db.Cards.create(**first_card)
 
@@ -603,12 +603,28 @@ class Anki:
         field_names = cls.model_field_names_by_id(db_note.mid)
         prev_note_fields = db_note.flds
         note_fields = []
+
         for i, name in enumerate(field_names):
-            note_field = fields.get(name, None)
+            note_field = fields.pop(name, None)
             if note_field is not None:
                 note_fields.append(note_field)
             else:
                 note_fields.append(prev_note_fields[i])
+        
+        if fields:
+            model = cls.model_by_id(db_note.mid)
+
+            for k, v in fields.items():
+                model.flds.append(
+                    FieldBuilder(name=k, order=len(model.flds))
+                )
+                note_fields.append(v)
+            
+            col = anki_db.Col.get()
+            m = col.models
+            m[str(model.id)] = model
+            col.models = m
+            col.save()
 
         db_note.flds = note_fields
         db_note.save()

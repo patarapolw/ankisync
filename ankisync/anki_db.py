@@ -306,7 +306,7 @@ class Revlog(BaseModel):
 
 
 @signals.pre_save(sender=Revlog)
-def cards_pre_save(model_class, instance, created):
+def revlog_pre_save(model_class, instance, created):
     while model_class.get_or_none(id=instance.id) is not None:
         instance.id = model_class.select(pv.fn.Max(model_class.id)).scalar() + 1
 

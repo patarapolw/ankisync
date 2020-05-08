@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ankisync"
-version = "0.1.6.3"
+version = "0.2.0"
 description = "Doing in Anki what AnkiConnect cannot do"
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 readme = "README.md"
@@ -10,7 +10,7 @@ homepage = "https://github.com/patarapolw/ankisync"
 keywords = ["anki-flashcards"]
 
 [tool.poetry.dependencies]
-python = "*"
+python = ">=3.5.*"
 appdirs = "^1.4"
 psutil = "^5.4"
 peewee = "^3.7"
@@ -20,3 +20,4 @@ tinydb = "^3.11"
 [tool.poetry.dev-dependencies]
 requests = "^2.20"
 oyaml = "^0.7.0"
+pylint = "^2.5.2"
