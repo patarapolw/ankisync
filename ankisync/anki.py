@@ -600,6 +600,7 @@ class Anki:
     @classmethod
     def update_note_fields(cls, note_id, fields: dict):
         db_note = anki_db.Notes.get(id=note_id)
+
         field_names = cls.model_field_names_by_id(db_note.mid)
         prev_note_fields = db_note.flds
         note_fields = []
@@ -615,14 +616,14 @@ class Anki:
             model = cls.model_by_id(db_note.mid)
 
             for k, v in fields.items():
-                model.flds.append(
-                    FieldBuilder(name=k, order=len(model.flds))
+                model['flds'].append(
+                    FieldBuilder(name=k, order=len(model['flds']))
                 )
                 note_fields.append(v)
             
             col = anki_db.Col.get()
             m = col.models
-            m[str(model.id)] = model
+            m[str(model['id'])] = model
             col.models = m
             col.save()
 

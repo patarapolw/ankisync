@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ankisync"
-version = "0.2.0"
+version = "0.2.1"
 description = "Doing in Anki what AnkiConnect cannot do"
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 readme = "README.md"
@@ -21,3 +21,5 @@ tinydb = "^3.11"
 requests = "^2.20"
 oyaml = "^0.7.0"
 pylint = "^2.5.2"
+pytest = "^5.4.1"
+jupyter = "^1.0.0"
