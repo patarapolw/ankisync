@@ -1,0 +1,3 @@
+import anki
+
+print(anki)

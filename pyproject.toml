@@ -10,12 +10,12 @@ homepage = "https://github.com/patarapolw/ankisync"
 keywords = ["anki-flashcards"]
 
 [tool.poetry.dependencies]
-python = ">=3.5.*"
+python = ">=3.7"
 appdirs = "^1.4"
 psutil = "^5.4"
 peewee = "^3.7"
-importlib_resources = "^1.0"
 tinydb = "^3.11"
+anki = "^2.1.30"
 
 [tool.poetry.dev-dependencies]
 requests = "^2.20"
