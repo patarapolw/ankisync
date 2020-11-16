@@ -1,10 +1,6 @@
 import json
 
-try:
-    from importlib.resources import read_text
-except ImportError:
-    from importlib_resources import read_text
-
+from importlib.resources import read_text
 from ankisync.util import deep_merge_dicts
 
 default = json.loads(read_text('ankisync.presets', 'default.json'))

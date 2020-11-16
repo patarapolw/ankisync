@@ -1,3 +1,5 @@
+> This project is deprecated. Please see [ankisync2](https://pypi.python.org/pypi/ankisync2/).
+
 # ankisync
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/ankisync.svg)](https://pypi.python.org/pypi/ankisync/)
